@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Providor.Data.Models
 {
     /// <summary>
@@ -24,5 +26,16 @@ namespace Providor.Data.Models
         /// The number of registers against the Meter.
         /// </summary>
         public int NumberOfRegisters { get; set; }
+
+        /// <summary>
+        /// The meter point foreign Key ID.
+        /// </summary>
+        public int MeterPointId { get; set; }
+
+        /// <summary>
+        /// The foreign key reference for Meter point.
+        /// </summary>
+        [JsonIgnore]
+        public MeterPoint MeterPoint { get; set; }
     }
 }

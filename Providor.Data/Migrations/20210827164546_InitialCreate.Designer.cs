@@ -9,8 +9,8 @@ using Providor.Data;
 namespace Providor.Data.Migrations
 {
     [DbContext(typeof(ProvidorDBContext))]
-    [Migration("20210826222342_SeedAdded")]
-    partial class SeedAdded
+    [Migration("20210827164546_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace Providor.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MeterPointId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MeterType")
                         .HasColumnType("int");
 
@@ -38,12 +41,15 @@ namespace Providor.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MeterPointId");
+
                     b.ToTable("Meters");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            MeterPointId = 1,
                             MeterType = 0,
                             NumberOfRegisters = 2,
                             OperatingMode = 0
@@ -51,10 +57,59 @@ namespace Providor.Data.Migrations
                         new
                         {
                             Id = 2,
+                            MeterPointId = 2,
                             MeterType = 1,
                             NumberOfRegisters = 1,
                             OperatingMode = 0
                         });
+                });
+
+            modelBuilder.Entity("Providor.Data.Models.MeterPoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Mpan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MpanIndicator")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MeterPoints");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Mpan = "123456",
+                            MpanIndicator = "1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Mpan = "7891234",
+                            MpanIndicator = "1"
+                        });
+                });
+
+            modelBuilder.Entity("Providor.Data.Models.Meter", b =>
+                {
+                    b.HasOne("Providor.Data.Models.MeterPoint", "MeterPoint")
+                        .WithMany("Meters")
+                        .HasForeignKey("MeterPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MeterPoint");
+                });
+
+            modelBuilder.Entity("Providor.Data.Models.MeterPoint", b =>
+                {
+                    b.Navigation("Meters");
                 });
 #pragma warning restore 612, 618
         }

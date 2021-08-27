@@ -1,4 +1,5 @@
-﻿using Providor.Data.DataServices;
+﻿using Providor.Business.Exceptions;
+using Providor.Data.DataServices;
 using Providor.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,20 @@ namespace Providor.Business.Services
 
         public MeterService(IMeterDataService dataService)
         {
-            _dataService = dataService;
+            _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
         }
         public IEnumerable<Meter> Get()
         {
-            return _dataService.GetAll();
+            var result = _dataService.GetAll();
+            if (result.Any())
+            {
+                return result;
+            }
+            else
+            {
+                throw new EmptyResultException();
+            }
+
         }
     }
 }

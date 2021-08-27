@@ -2,9 +2,6 @@
 using Providor.Business.Exceptions;
 using Providor.Business.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,12 +9,12 @@ namespace Providor.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class MeterController : ControllerBase
+    public class MeterPointController : ControllerBase
     {
-        private readonly IMeterService _meterService;
-        public MeterController(IMeterService meterService)
+        private readonly IMeterPointService _service;
+        public MeterPointController(IMeterPointService service)
         {
-            _meterService = meterService;
+            _service = service;
         }
 
         // GET: api/<MeterController>
@@ -26,7 +23,7 @@ namespace Providor.Controllers
         {
             try
             {
-                var data = _meterService.Get();
+                var data = _service.Get();
                 return Ok(data);
             }
             catch (EmptyResultException ex)

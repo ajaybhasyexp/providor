@@ -40,6 +40,8 @@ namespace Providor
                 options.UseSqlServer($"Server={server}, {port};Initial Catalog={database};User ID={user};Password={password}"));
             services.AddTransient<IMeterService, MeterService>();
             services.AddTransient<IMeterDataService, MeterDataService>();
+            services.AddTransient<IMeterPointService,MeterPointService>();
+            services.AddTransient<IMeterPointDataService,MeterPointDataService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
