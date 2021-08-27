@@ -1,0 +1,26 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  providor:    
+    image: providor
+    build:
+      context: .
+      dockerfile: ./Providor/Dockerfile
+    ports:
+      - 5000:5000
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - DbServer=db
+      - Database=providerDB
+      - Password=providerDB_123
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports: 
+      - 1433:1433
+    environment: 
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=providerDB_123
+      - MSSQL_PID=Express
