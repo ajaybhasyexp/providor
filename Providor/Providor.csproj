@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Providor.Data\Providor.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="wait-for-it.sh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

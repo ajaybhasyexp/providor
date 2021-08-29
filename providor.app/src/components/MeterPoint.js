@@ -62,8 +62,8 @@ class MeterPoint extends React.Component {
             // <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}></Accordion>
             return (<Box sx={{ flexGrow: 1 }}>
                 {meterPoints.map(meterPoint => (
-                    <Grid container spacing={2}>
-                        <Grid item xs={8}>
+                    <Grid container spacing={meterPoints.length}>
+                        <Grid item xs={12}>
                             <Item>
                                 <Accordion >
                                     <AccordionSummary expandIcon={< ExpandMoreIcon />}

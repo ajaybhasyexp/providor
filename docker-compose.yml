@@ -10,6 +10,9 @@ services:
       dockerfile: ./Providor/Dockerfile
     ports:
       - 5000:5000
+    depends_on:
+      - "db"
+    command: sh -c './wait-for db:1433 -- dotnet Providor.dll'
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
@@ -24,3 +27,7 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=providerDB_123
       - MSSQL_PID=Express
+  providorapp:
+    image: providorapp
+    ports:
+      - 3000:3000

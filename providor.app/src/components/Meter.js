@@ -1,9 +1,4 @@
-import Accordion from '@material-ui/core/Accordion';
 import React from 'react';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import OfflineBoltOutlinedIcon from '@material-ui/icons/OfflineBoltOutlined';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import { styled } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
