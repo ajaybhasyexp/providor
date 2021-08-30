@@ -2,6 +2,7 @@
 using Providor.Business.Exceptions;
 using Providor.Business.Services;
 using System;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,39 +27,14 @@ namespace Providor.Controllers
                 var data = _service.Get();
                 return Ok(data);
             }
-            catch (EmptyResultException ex)
+            catch (EmptyResultException)
             {
-                return StatusCode(204, ex.Message);
+                return new NoContentResult();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, ex.Message);
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
             }
-        }
-
-        // GET api/<MeterController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<MeterController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<MeterController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<MeterController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        }        
     }
 }
